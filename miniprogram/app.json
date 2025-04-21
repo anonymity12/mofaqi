@@ -1,9 +1,9 @@
 {
   "pages": [
-    "page/component/index",
-    "page/API/index",
-    "page/cloud/index",
-    "page/extend/index"
+    "pages/scenic/scenic",
+    "pages/dangerous/dangerous",
+    "pages/tips/tips",
+    "pages/principles/principles"
   ],
   "subpackages": [
     {
@@ -184,67 +184,41 @@
       ]
     }
   ],
-  "preloadRule": {
-    "page/component/index": {
-      "network": "all",
-      "packages": [
-        "packageComponent"
-      ]
-    },
-    "page/API/index": {
-      "network": "all",
-      "packages": [
-        "packageAPI"
-      ]
-    },
-    "page/cloud/index": {
-      "network": "all",
-      "packages": [
-        "packageCloud"
-      ]
-    },
-    "page/extend/index": {
-      "network": "all",
-      "packages": [
-        "packageExtend"
-      ]
-    }
-  },
   "window": {
     "navigationBarTextStyle": "@navigationBarTextStyle",
-    "navigationBarTitleText": "演示",
+    "navigationBarTitleText": "摩法骑",
     "navigationBarBackgroundColor": "@navigationBarBackgroundColor",
     "backgroundColor": "@backgroundColor"
   },
   "tabBar": {
-    "color": "@tabBarColor",
-    "selectedColor": "@tabBarSelectedColor",
-    "borderStyle": "@tabBarBorderStyle",
-    "backgroundColor": "@tabBarBackgroundColor",
+    "color": "#999999",
+    "selectedColor": "#1296db",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "page/component/index",
-        "iconPath": "@iconPathComponent",
-        "selectedIconPath": "@selectedIconPathComponent",
-        "text": "组件"
+        "pagePath": "pages/scenic/scenic",
+        "text": "风景点",
+        "iconPath": "images/scenic_normal.png",
+        "selectedIconPath": "images/scenic_selected.png"
       },
       {
-        "pagePath": "page/extend/index",
-        "iconPath": "@iconPathComponent",
-        "selectedIconPath": "@selectedIconPathComponent",
-        "text": "扩展能力"
+        "pagePath": "pages/dangerous/dangerous",
+        "text": "危险路段",
+        "iconPath": "images/dangerous_normal.png",
+        "selectedIconPath": "images/dangerous_selected.png"
       },
       {
-        "pagePath": "page/API/index",
-        "iconPath": "@iconPathAPI",
-        "selectedIconPath": "@selectedIconPathAPI",
-        "text": "接口"
+        "pagePath": "pages/tips/tips",
+        "text": "驾驶技巧",
+        "iconPath": "images/tips_normal.png",
+        "selectedIconPath": "images/tips_selected.png"
       },
       {
-        "pagePath": "page/cloud/index",
-        "iconPath": "@iconPathCloud",
-        "selectedIconPath": "@selectedIconPathCloud",
-        "text": "云开发"
+        "pagePath": "pages/principles/principles",
+        "text": "原理科普",
+        "iconPath": "images/principles_normal.png",
+        "selectedIconPath": "images/principles_selected.png"
       }
     ]
   },
@@ -270,8 +244,5 @@
   "useExtendedLib": {
     "weui": true
   },
-  "frameset": true,
-  "requiredBackgroundModes": ["audio", "location"],
-  "embeddedAppIdList": ["wxfdcee92a299bcaf1"],
   "lazyCodeLoading": "requiredComponents"
 }

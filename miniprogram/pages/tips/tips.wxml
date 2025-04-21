@@ -1,0 +1,55 @@
+<!--pages/tips/tips.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">安全驾驶技巧</text>
+    <button class="add-btn" bindtap="addNewTip">+ 分享经验</button>
+  </view>
+  
+  <!-- 标签页导航 -->
+  <view class="tab-nav">
+    <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="changeTab" data-index="0">
+      <text>最新发布</text>
+    </view>
+    <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="changeTab" data-index="1">
+      <text>最多点赞</text>
+    </view>
+    <view class="tab-item {{activeTab === 2 ? 'active' : ''}}" bindtap="changeTab" data-index="2">
+      <text>热门讨论</text>
+    </view>
+  </view>
+  
+  <!-- 文章列表 -->
+  <view class="tips-list">
+    <view class="tip-card" wx:for="{{tipsList}}" wx:key="id" bindtap="viewDetail" data-id="{{item.id}}">
+      <view class="tip-header">
+        <image class="author-avatar" src="{{item.avatar}}"></image>
+        <view class="author-info">
+          <text class="author-name">{{item.author}}</text>
+          <text class="publish-time">{{item.time}}</text>
+        </view>
+      </view>
+      
+      <view class="tip-content">
+        <view class="tip-title">{{item.title}}</view>
+        <view class="tip-text">{{item.content}}</view>
+      </view>
+      
+      <view class="tip-footer">
+        <view class="action-btn like-btn" catchtap="likeTip" data-id="{{item.id}}">
+          <image src="/images/like.png"></image>
+          <text>{{item.likes}}</text>
+        </view>
+        <view class="action-btn comment-btn">
+          <image src="/images/comment.png"></image>
+          <text>{{item.comments}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 空状态展示 -->
+  <view class="empty-state" wx:if="{{tipsList.length === 0}}">
+    <image class="empty-image" src="/images/empty.png"></image>
+    <text class="empty-text">暂无驾驶技巧分享，快来分享你的经验吧</text>
+  </view>
+</view>

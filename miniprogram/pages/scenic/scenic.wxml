@@ -1,0 +1,27 @@
+<!--pages/scenic/scenic.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">风景点分享</text>
+    <button class="add-btn" bindtap="addNewScenic">+添加</button>
+  </view>
+  
+  <view class="scenic-list">
+    <view class="scenic-card" wx:for="{{scenicList}}" wx:key="id" bindtap="viewDetail" data-id="{{item.id}}">
+      <image class="scenic-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
+      <view class="scenic-info">
+        <view class="scenic-title">{{item.title}}</view>
+        <view class="scenic-desc">{{item.description}}</view>
+        <view class="scenic-meta">
+          <text class="scenic-location">{{item.location}}</text>
+          <text class="scenic-time">{{item.timestamp}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态展示 -->
+  <view class="empty-state" wx:if="{{scenicList.length === 0}}">
+    <image class="empty-image" src="/images/empty.png"></image>
+    <text class="empty-text">暂无风景点分享，点击上方"+"添加</text>
+  </view>
+</view>

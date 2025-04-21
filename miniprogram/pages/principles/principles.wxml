@@ -1,0 +1,47 @@
+<!--pages/principles/principles.wxml-->
+<view class="container">
+  <view class="page-header">
+    <text class="page-title">摩托车原理科普</text>
+  </view>
+  
+  <!-- 分类菜单 -->
+  <view class="category-menu">
+    <view class="category-item {{currentCategory === 'engine' ? 'active' : ''}}" bindtap="switchCategory" data-category="engine">
+      <image src="/images/engine.png" mode="aspectFit"></image>
+      <text>发动机原理</text>
+    </view>
+    <view class="category-item {{currentCategory === 'chassis' ? 'active' : ''}}" bindtap="switchCategory" data-category="chassis">
+      <image src="/images/chassis.png" mode="aspectFit"></image>
+      <text>车架结构</text>
+    </view>
+    <view class="category-item {{currentCategory === 'brake' ? 'active' : ''}}" bindtap="switchCategory" data-category="brake">
+      <image src="/images/brake.png" mode="aspectFit"></image>
+      <text>制动系统</text>
+    </view>
+    <view class="category-item {{currentCategory === 'electric' ? 'active' : ''}}" bindtap="switchCategory" data-category="electric">
+      <image src="/images/electric.png" mode="aspectFit"></image>
+      <text>电气系统</text>
+    </view>
+  </view>
+  
+  <!-- 文章列表 -->
+  <view class="article-list">
+    <view class="article-item" wx:for="{{articles}}" wx:key="id" bindtap="viewArticle" data-id="{{item.id}}">
+      <image class="article-image" src="{{item.coverImg}}" mode="aspectFill"></image>
+      <view class="article-info">
+        <view class="article-title">{{item.title}}</view>
+        <view class="article-desc">{{item.description}}</view>
+        <view class="article-stats">
+          <text class="article-views">{{item.views}} 阅读</text>
+          <text class="article-date">{{item.date}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 空状态展示 -->
+  <view class="empty-state" wx:if="{{articles.length === 0}}">
+    <image class="empty-image" src="/images/empty.png"></image>
+    <text class="empty-text">该分类下暂无内容</text>
+  </view>
+</view>

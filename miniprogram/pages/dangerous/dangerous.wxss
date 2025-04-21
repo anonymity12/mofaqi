@@ -1,0 +1,77 @@
+/* pages/dangerous/dangerous.wxss */
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.map-controls {
+  position: absolute;
+  right: 30rpx;
+  bottom: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.control-btn image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.add-btn {
+  background-color: #1296db;
+  color: white;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.map-legend {
+  position: absolute;
+  left: 30rpx;
+  bottom: 30rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.legend-item image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.legend-item text {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.legend-tip {
+  font-size: 22rpx;
+  color: #999;
+}

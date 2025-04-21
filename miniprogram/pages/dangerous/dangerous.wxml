@@ -1,0 +1,34 @@
+<!--pages/dangerous/dangerous.wxml-->
+<view class="container">
+  <view class="map-container">
+    <map
+      id="dangerMap"
+      longitude="{{longitude}}"
+      latitude="{{latitude}}"
+      scale="14"
+      markers="{{markers}}"
+      bindmarkertap="markerTap"
+      show-location="true"
+      style="width: 100%; height: 100%;">
+    </map>
+    
+    <!-- 地图控制按钮 -->
+    <view class="map-controls">
+      <view class="control-btn" bindtap="moveToLocation">
+        <image src="/images/location.png" mode="aspectFit"></image>
+      </view>
+      <view class="control-btn add-btn" bindtap="addDangerousRoad">
+        <text>+</text>
+      </view>
+    </view>
+    
+    <!-- 地图底部说明 -->
+    <view class="map-legend">
+      <view class="legend-item">
+        <image src="/images/danger_marker.png" mode="aspectFit"></image>
+        <text>危险路段</text>
+      </view>
+      <text class="legend-tip">点击标记可查看详情</text>
+    </view>
+  </view>
+</view>
