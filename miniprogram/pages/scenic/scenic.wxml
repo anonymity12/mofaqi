@@ -24,4 +24,35 @@
     <image class="empty-image" src="/images/empty.png"></image>
     <text class="empty-text">暂无风景点分享，点击上方"+"添加</text>
   </view>
+  
+  <!-- 添加风景点表单 -->
+  <view class="add-form-container" wx:if="{{showAddForm}}">
+    <view class="add-form-mask" bindtap="cancelAdd"></view>
+    <view class="add-form">
+      <view class="form-header">
+        <text class="form-title">添加风景点</text>
+        <view class="close-btn" bindtap="cancelAdd">×</view>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">标题</text>
+        <input class="form-input" placeholder="请输入标题" value="{{newScenic.title}}" bindinput="onInputChange" data-field="title" />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">描述</text>
+        <textarea class="form-textarea" placeholder="请输入描述" value="{{newScenic.description}}" bindinput="onInputChange" data-field="description"></textarea>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">位置</text>
+        <input class="form-input" placeholder="请输入位置" value="{{newScenic.location}}" bindinput="onInputChange" data-field="location" />
+      </view>
+      
+      <view class="form-buttons">
+        <button class="cancel-btn" bindtap="cancelAdd">取消</button>
+        <button class="submit-btn" bindtap="submitForm">提交</button>
+      </view>
+    </view>
+  </view>
 </view>

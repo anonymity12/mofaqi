@@ -26,7 +26,13 @@ Page({
         location: '浙江临安',
         timestamp: '2025-04-05'
       }
-    ]
+    ],
+    newScenic: {
+      title: '',
+      description: '',
+      location: ''
+    },
+    showAddForm: false
   },
 
   onLoad: function (options) {
@@ -52,9 +58,131 @@ Page({
   
   // 添加新的风景点
   addNewScenic: function() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    this.setData({
+      showAddForm: true
     });
+  },
+  
+  // 取消添加
+  cancelAdd: function() {
+    this.setData({
+      showAddForm: false,
+      newScenic: {
+        title: '',
+        description: '',
+        location: ''
+      }
+    });
+  },
+  
+  // 输入框内容变化
+  onInputChange: function(e) {
+    const field = e.currentTarget.dataset.field;
+    const value = e.detail.value;
+    const newData = {};
+    newData[`newScenic.${field}`] = value;
+    this.setData(newData);
+  },
+  
+  // 提交表单
+  submitForm: function() {
+    const that = this;
+    const { title, description, location } = this.data.newScenic;
+    
+    if (!title || !description || !location) {
+      wx.showToast({
+        title: '请填写完整信息',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    wx.showLoading({
+      title: '保存中...',
+    });
+    
+    // 调用云函数添加风景点信息
+    wx.cloud.callFunction({
+      name: 'addScenic',
+      data: {
+        title,
+        description,
+        location
+      }
+    }).then(res => {
+      wx.hideLoading();
+      const result = res.result;
+      
+      if (result.success) {
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success'
+        });
+        
+        // 重置表单并刷新列表
+        that.setData({
+          showAddForm: false,
+          newScenic: {
+            title: '',
+            description: '',
+            location: ''
+          }
+        });
+        
+        // 刷新风景点列表
+        that.loadScenicList();
+      } else {
+        wx.showToast({
+          title: '添加失败',
+          icon: 'none'
+        });
+        console.error('[添加风景点] 失败：', result.error);
+      }
+    }).catch(err => {
+      wx.hideLoading();
+      wx.showToast({
+        title: '系统错误',
+        icon: 'none'
+      });
+      console.error('[调用云函数] 失败：', err);
+    });
+  },
+  
+  // 加载风景点列表
+  loadScenicList: function() {
+    const that = this;
+    wx.showLoading({
+      title: '加载中...',
+    });
+    
+    // 从数据库获取风景点列表
+    wx.cloud.callFunction({
+      name: 'getScenicList'
+    }).then(res => {
+      wx.hideLoading();
+      if (res.result && res.result.data) {
+        that.setData({
+          scenicList: res.result.data
+        });
+      }
+    }).catch(err => {
+      wx.hideLoading();
+      console.error('[获取风景点列表] 失败：', err);
+    });
+  },
+  
+  onLoad: function (options) {
+    // 初始化云环境
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+    } else {
+      wx.cloud.init({
+        traceUser: true,
+      });
+      
+      // 加载风景点列表
+      // 注释掉以保留静态数据，等后续功能完善后再启用
+      // this.loadScenicList();
+    }
   }
 })
