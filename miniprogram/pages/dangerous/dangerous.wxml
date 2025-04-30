@@ -7,6 +7,7 @@
       latitude="{{latitude}}"
       scale="14"
       markers="{{markers}}"
+      bindtap="mapTap"
       bindmarkertap="markerTap"
       show-location="true"
       style="width: 100%; height: 100%;">
@@ -19,6 +20,9 @@
       </view>
       <view class="control-btn add-btn" bindtap="addDangerousRoad">
         <text>+</text>
+      </view>
+      <view class="control-btn" bindtap="clearTempMarker" wx:if="{{tempMarker}}">
+        <text>取消</text>
       </view>
     </view>
     
