@@ -70,7 +70,7 @@ Page({
   filterArticles: function(category) {
     const filteredArticles = this.data.articles.filter(article => article.category === category);
     this.setData({
-      articles: filteredArticles
+      filteredArticles: filteredArticles
     });
   },
 
