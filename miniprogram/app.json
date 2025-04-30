@@ -5,6 +5,10 @@
     "pages/tips/tips",
     "pages/principles/principles"
   ],
+  "requiredPrivateInfos": [
+    "getFuzzyLocation",
+    "chooseLocation"
+  ],
   "window": {
     "navigationBarTextStyle": "@navigationBarTextStyle",
     "navigationBarTitleText": "摩法骑",
