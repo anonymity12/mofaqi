@@ -94,16 +94,79 @@ Page({
 
   // 添加危险路段
   addDangerousRoad: function() {
+    const that = this;
     wx.showActionSheet({
       itemList: this.data.dangerTypes,
       success: (res) => {
         if (!res.cancel) {
           const dangerType = this.data.dangerTypes[res.tapIndex];
-          wx.showToast({
-            title: '您选择了：' + dangerType + '\n功能开发中',
-            icon: 'none'
+          // 获取当前位置
+          wx.getLocation({
+            type: 'gcj02',
+            success: function(locationRes) {
+              wx.showLoading({
+                title: '正在提交...',
+              });
+              
+              // 调用云函数
+              wx.cloud.callFunction({
+                name: 'addDangerousRoad',
+                data: {
+                  dangerType: dangerType,
+                  latitude: locationRes.latitude,
+                  longitude: locationRes.longitude
+                },
+                success: function(res) {
+                  wx.hideLoading();
+                  if (res.result && res.result.success) {
+                    wx.showToast({
+                      title: '添加成功',
+                      icon: 'success'
+                    });
+                    // 添加新标记到地图
+                    const newMarker = {
+                      id: new Date().getTime(),
+                      latitude: locationRes.latitude,
+                      longitude: locationRes.longitude,
+                      title: dangerType,
+                      iconPath: '/images/danger_marker.png',
+                      width: 30,
+                      height: 30,
+                      callout: {
+                        content: dangerType,
+                        color: '#FF0000',
+                        fontSize: 12,
+                        borderRadius: 5,
+                        bgColor: '#FFFFFF',
+                        padding: 5,
+                        display: 'BYCLICK'
+                      }
+                    };
+                    const markers = that.data.markers.concat(newMarker);
+                    that.setData({ markers });
+                  } else {
+                    wx.showToast({
+                      title: '添加失败',
+                      icon: 'none'
+                    });
+                  }
+                },
+                fail: function(err) {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '提交失败',
+                    icon: 'none'
+                  });
+                }
+              });
+            },
+            fail: function() {
+              wx.showToast({
+                title: '获取位置失败',
+                icon: 'none'
+              });
+            }
           });
-          // 这里可以实现添加危险路段的逻辑
         }
       }
     });
