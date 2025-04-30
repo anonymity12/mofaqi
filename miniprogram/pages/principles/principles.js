@@ -7,7 +7,7 @@ Page({
         id: 1,
         title: '四冲程发动机工作原理',
         description: '详解摩托车四冲程发动机的进气、压缩、做功、排气四个过程，以及各部件的协同工作机制。',
-        coverImg: '/images/engine_four_stroke.jpg',
+        coverImg: '/images/electric_ignition.jpg',
         category: 'engine',
         views: 1258,
         date: '2025-04-01'
@@ -16,7 +16,7 @@ Page({
         id: 2,
         title: '二冲程发动机与四冲程的区别',
         description: '探讨二冲程与四冲程发动机在结构、效率、噪音、排放等方面的区别，以及适用场景。',
-        coverImg: '/images/engine_two_stroke.jpg',
+        coverImg: '/images/electric_ignition.jpg',
         category: 'engine',
         views: 956,
         date: '2025-03-28'
@@ -34,7 +34,7 @@ Page({
         id: 4,
         title: '现代摩托车制动系统详解',
         description: '解析碟刹与鼓刹的工作原理，以及ABS系统如何提高摩托车在紧急情况下的稳定性。',
-        coverImg: '/images/brake_system.jpg',
+        coverImg: '/images/electric_ignition.jpg',
         category: 'brake',
         views: 1032,
         date: '2025-03-20'
@@ -77,15 +77,9 @@ Page({
   // 查看文章详情
   viewArticle: function(e) {
     const id = e.currentTarget.dataset.id;
-    // 这里可以跳转到文章详情页
-    // wx.navigateTo({
-    //   url: '/pages/principles/detail/detail?id=' + id
-    // });
-    
-    // 暂时显示开发中提示
-    wx.showToast({
-      title: '文章内容开发中',
-      icon: 'none'
+    // 跳转到文章详情页
+    wx.navigateTo({
+      url: '/pages/principles/detail/detail?id=' + id
     });
   }
 })

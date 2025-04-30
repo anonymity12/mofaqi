@@ -1,0 +1,245 @@
+/* pages/principles/detail/detail.wxss */
+
+page {
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #f8f8f8;
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.container {
+  padding: 0;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loading {
+  width: 40rpx;
+  height: 40rpx;
+  border: 6rpx solid #f3f3f3;
+  border-top: 6rpx solid #1296db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-top: calc(65rpx + env(safe-area-inset-top));
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.back-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20rpx;
+}
+
+.icon {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  flex: 1;
+  text-align: center;
+  margin-right: 60rpx;
+}
+
+/* 文章内容容器 */
+.article-container {
+  background-color: #fff;
+  width: 100%;
+}
+
+/* 文章头部 */
+.article-header {
+  padding: 20rpx;
+  background-color: #fff;
+}
+
+.article-cover {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.article-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  line-height: 1.4;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  color: #999;
+  font-size: 26rpx;
+  margin-bottom: 20rpx;
+}
+
+.article-author, .article-date {
+  margin-right: 20rpx;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10rpx 0 20rpx;
+}
+
+.tag {
+  background-color: #f0f0f0;
+  color: #666;
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 30rpx;
+  margin-right: 16rpx;
+  margin-bottom: 10rpx;
+}
+
+/* 文章内容 */
+.article-content {
+  padding: 20rpx;
+  line-height: 1.8;
+  color: #333;
+  font-size: 30rpx;
+}
+
+.article-content rich-text {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* 相关文章 */
+.related-articles {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background-color: #fff;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.section-title::before {
+  content: '';
+  width: 8rpx;
+  height: 34rpx;
+  background-color: #1296db;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 4rpx;
+}
+
+.related-list {
+  width: 100%;
+}
+
+.related-item {
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.related-item:last-child {
+  border-bottom: none;
+}
+
+.related-image {
+  width: 180rpx;
+  height: 120rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.related-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.related-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.related-desc {
+  font-size: 24rpx;
+  color: #999;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 错误状态 */
+.error-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.error-text {
+  margin: 30rpx 0;
+  color: #666;
+  font-size: 32rpx;
+}
+
+.back-button {
+  margin-top: 40rpx;
+  background-color: #1296db;
+  color: #fff;
+  padding: 20rpx 60rpx;
+  border-radius: 40rpx;
+}

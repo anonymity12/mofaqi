@@ -1,0 +1,61 @@
+<!--pages/principles/detail/detail.wxml-->
+<view class="container">
+  <!-- 加载中状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading"></view>
+    <text>加载文章中...</text>
+  </view>
+
+  <!-- 文章内容 -->
+  <view class="article-container" wx:if="{{!loading && article}}">
+    <!-- 顶部导航 -->
+    <view class="nav-bar">
+      <view class="back-btn" bindtap="goBack">
+        <text class="icon">←</text>
+      </view>
+      <view class="nav-title">{{article.category === 'engine' ? '发动机原理' : 
+                               article.category === 'chassis' ? '车架结构' :
+                               article.category === 'brake' ? '制动系统' : '电气系统'}}</view>
+    </view>
+
+    <!-- 文章头部 -->
+    <view class="article-header">
+      <image class="article-cover" src="{{article.coverImg}}" mode="aspectFill" bindtap="previewImage" data-src="{{article.coverImg}}"></image>
+      <view class="article-title">{{article.title}}</view>
+      <view class="article-meta">
+        <text class="article-author">作者：{{article.author || '摩法骑编辑组'}}</text>
+        <text class="article-date">{{article.date}}</text>
+        <text class="article-views">阅读 {{article.views}}</text>
+      </view>
+      <view class="article-tags">
+        <text class="tag" wx:for="{{article.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 文章内容 -->
+    <view class="article-content">
+      <rich-text nodes="{{article.content}}"></rich-text>
+    </view>
+
+    <!-- 相关文章 -->
+    <view class="related-articles" wx:if="{{relatedArticles.length > 0}}">
+      <view class="section-title">相关文章</view>
+      <view class="related-list">
+        <view class="related-item" wx:for="{{relatedArticles}}" wx:key="id" bindtap="viewRelatedArticle" data-id="{{item.id}}">
+          <image class="related-image" src="{{item.coverImg}}" mode="aspectFill"></image>
+          <view class="related-info">
+            <view class="related-title">{{item.title}}</view>
+            <view class="related-desc">{{item.description}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 文章不存在 -->
+  <view class="error-container" wx:if="{{!loading && !article}}">
+    <icon type="warn" size="64"></icon>
+    <text class="error-text">文章不存在或已被删除</text>
+    <button class="back-button" bindtap="goBack">返回列表</button>
+  </view>
+</view>

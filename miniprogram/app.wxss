@@ -10,7 +10,6 @@ page {
   line-height: 1.6;
   color: var(--weui-FG-0);
   display: flex;
-  justify-content: center;
 }
 page>view {
   width: 100vw;
@@ -43,7 +42,6 @@ input {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  justify-content: space-between;
   font-size: 16px;
   font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
 }
