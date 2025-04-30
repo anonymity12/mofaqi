@@ -66,6 +66,56 @@ Page({
   onLoad: function (options) {
     // 获取用户当前位置
     this.getUserLocation();
+    // 从云数据库加载危险路段标记
+    this.loadDangerousMarkers();
+  },
+
+  loadDangerousMarkers: function() {
+    const that = this;
+    wx.showLoading({
+      title: '加载中...',
+    });
+    
+    wx.cloud.callFunction({
+      name: 'getDangerousList',
+      success: function(res) {
+        wx.hideLoading();
+        if (res.result && res.result.success) {
+          const markers = res.result.data.map(item => ({
+            id: item._id,
+            latitude: item.location.latitude,
+            longitude: item.location.longitude,
+            title: item.type,
+            iconPath: '/images/danger_marker.png',
+            width: 30,
+            height: 30,
+            callout: {
+              content: item.type,
+              color: '#FF0000',
+              fontSize: 12,
+              borderRadius: 5,
+              bgColor: '#FFFFFF',
+              padding: 5,
+              display: 'BYCLICK'
+            }
+          }));
+          that.setData({ markers });
+        } else {
+          wx.showToast({
+            title: '加载失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: function(err) {
+        wx.hideLoading();
+        wx.showToast({
+          title: '加载失败',
+          icon: 'none'
+        });
+        console.error('加载危险路段失败:', err);
+      }
+    });
   },
 
   getUserLocation: function() {
