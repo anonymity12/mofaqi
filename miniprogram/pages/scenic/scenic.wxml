@@ -49,6 +49,17 @@
         <input class="form-input" placeholder="请输入位置" value="{{newScenic.location}}" bindinput="onInputChange" data-field="location" />
       </view>
       
+      <view class="form-item">
+        <text class="form-label">图片</text>
+        <view class="image-upload" bindtap="chooseImage">
+          <image class="preview-image" src="{{tempImagePath}}" mode="aspectFill" wx:if="{{tempImagePath}}"></image>
+          <view class="upload-placeholder" wx:else>
+            <text class="upload-icon">+</text>
+            <text class="upload-text">选择图片</text>
+          </view>
+        </view>
+      </view>
+      
       <view class="form-buttons">
         <button class="cancel-btn" bindtap="cancelAdd">取消</button>
         <button class="submit-btn" bindtap="submitForm">提交</button>

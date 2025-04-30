@@ -4,20 +4,13 @@ Page({
     scenicList: [
       {
         id: 1,
-        title: '山顶盘山公路',
+        title: '小山顶盘山公路',
         description: '绵延的山路，风景秀丽，适合周末骑行',
         imageUrl: '/images/scenic1.jpg',
         location: '北京怀柔',
         timestamp: '2025-04-15'
       },
-      {
-        id: 2,
-        title: '海滨公路',
-        description: '沿海公路，清风拂面，视野开阔',
-        imageUrl: '/images/scenic2.jpg',
-        location: '青岛',
-        timestamp: '2025-04-10'
-      },
+      
       {
         id: 3,
         title: '森林小路',
@@ -30,8 +23,10 @@ Page({
     newScenic: {
       title: '',
       description: '',
-      location: ''
+      location: '',
+      imageUrl: ''
     },
+    tempImagePath: '',
     showAddForm: false
   },
 
@@ -70,8 +65,10 @@ Page({
       newScenic: {
         title: '',
         description: '',
-        location: ''
-      }
+        location: '',
+        imageUrl: ''
+      },
+      tempImagePath: ''
     });
   },
   
@@ -84,12 +81,56 @@ Page({
     this.setData(newData);
   },
   
+  // 选择图片
+  chooseImage: function() {
+    const that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function(res) {
+        that.setData({
+          tempImagePath: res.tempFilePaths[0]
+        });
+      }
+    });
+  },
+  
+  // 上传图片到云存储
+  uploadImage: function() {
+    if (!this.data.tempImagePath) {
+      return Promise.resolve('');
+    }
+    
+    wx.showLoading({
+      title: '上传图片中...',
+    });
+    
+    const cloudPath = 'scenic/' + new Date().getTime() + this.data.tempImagePath.match(/\.[^.]+?$/)[0];
+    
+    return wx.cloud.uploadFile({
+      cloudPath,
+      filePath: this.data.tempImagePath,
+    }).then(res => {
+      wx.hideLoading();
+      return res.fileID;
+    }).catch(error => {
+      wx.hideLoading();
+      wx.showToast({
+        title: '图片上传失败',
+        icon: 'none'
+      });
+      console.error('[上传图片] 失败：', error);
+      return '';
+    });
+  },
+  
   // 提交表单
   submitForm: function() {
     const that = this;
     const { title, description, location } = this.data.newScenic;
     
-    if (!title || !description || !location) {
+    if (!title || !description || !location || !this.data.tempImagePath) {
       wx.showToast({
         title: '请填写完整信息',
         icon: 'none'
@@ -101,50 +142,61 @@ Page({
       title: '保存中...',
     });
     
-    // 调用云函数添加风景点信息
-    wx.cloud.callFunction({
-      name: 'addScenic',
-      data: {
-        title,
-        description,
-        location
+    // 先上传图片，再调用云函数
+    this.uploadImage().then(fileID => {
+      if (!fileID) {
+        wx.hideLoading();
+        return;
       }
-    }).then(res => {
-      wx.hideLoading();
-      const result = res.result;
       
-      if (result.success) {
-        wx.showToast({
-          title: '添加成功',
-          icon: 'success'
-        });
+      // 调用云函数添加风景点信息
+      wx.cloud.callFunction({
+        name: 'addScenic',
+        data: {
+          title,
+          description,
+          location,
+          imageUrl: fileID
+        }
+      }).then(res => {
+        wx.hideLoading();
+        const result = res.result;
         
-        // 重置表单并刷新列表
-        that.setData({
-          showAddForm: false,
-          newScenic: {
-            title: '',
-            description: '',
-            location: ''
-          }
-        });
-        
-        // 刷新风景点列表
-        that.loadScenicList();
-      } else {
+        if (result.success) {
+          wx.showToast({
+            title: '添加成功',
+            icon: 'success'
+          });
+          
+          // 重置表单并刷新列表
+          that.setData({
+            showAddForm: false,
+            newScenic: {
+              title: '',
+              description: '',
+              location: '',
+              imageUrl: ''
+            },
+            tempImagePath: ''
+          });
+          
+          // 刷新风景点列表
+          that.loadScenicList();
+        } else {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'none'
+          });
+          console.error('[添加风景点] 失败：', result.error);
+        }
+      }).catch(err => {
+        wx.hideLoading();
         wx.showToast({
-          title: '添加失败',
+          title: '系统错误',
           icon: 'none'
         });
-        console.error('[添加风景点] 失败：', result.error);
-      }
-    }).catch(err => {
-      wx.hideLoading();
-      wx.showToast({
-        title: '系统错误',
-        icon: 'none'
+        console.error('[调用云函数] 失败：', err);
       });
-      console.error('[调用云函数] 失败：', err);
     });
   },
   
@@ -179,7 +231,7 @@ Page({
       wx.cloud.init({
         traceUser: true,
       });
-      
+      this.loadScenicList();
       // 加载风景点列表
       // 注释掉以保留静态数据，等后续功能完善后再启用
       // this.loadScenicList();
