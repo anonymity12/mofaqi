@@ -22,11 +22,6 @@
     <view class="article-header">
       <image class="article-cover" src="{{article.coverImg}}" mode="aspectFill" bindtap="previewImage" data-src="{{article.coverImg}}"></image>
       <view class="article-title">{{article.title}}</view>
-      <view class="article-meta">
-        <text class="article-author">作者：{{article.author || '摩法骑编辑组'}}</text>
-        <text class="article-date">{{article.date}}</text>
-        <text class="article-views">阅读 {{article.views}}</text>
-      </view>
       <view class="article-tags">
         <text class="tag" wx:for="{{article.tags}}" wx:key="*this">{{item}}</text>
       </view>
