@@ -31,6 +31,36 @@ Page({
         time: '2025-04-10',
         likes: 56,
         comments: 12
+      },
+      {
+        id: 4,
+        title: '雨天骑行装备指南',
+        content: '雨天骑行需要准备防水外套、防滑手套和防雾镜片。建议携带备用衣物，并在鞋子上喷防水剂，确保视野清晰和行车安全。',
+        author: '装备达人',
+        avatar: '/images/avatar1.png',
+        time: '2025-04-08',
+        likes: 45,
+        comments: 8
+      },
+      {
+        id: 5,
+        title: '摩托车日常保养要点',
+        content: '每次行驶前检查轮胎气压、机油液位和链条状态。定期清洗车身，保持链条润滑，检查制动系统。每周至少进行一次详细检查。',
+        author: '维修专家',
+        avatar: '/images/avatar2.png',
+        time: '2025-04-05',
+        likes: 62,
+        comments: 15
+      },
+      {
+        id: 6,
+        title: '新手入门必读技巧',
+        content: '起步时轻柔操作离合和油门，保持匀速行驶。转弯时注意重心转移，不要紧抓车把。培养良好的观察习惯，预判路况变化。',
+        author: '教练老王',
+        avatar: '/images/avatar3.png',
+        time: '2025-04-02',
+        likes: 89,
+        comments: 20
       }
     ],
     activeTab: 0,
@@ -40,66 +70,4 @@ Page({
   onLoad: function (options) {
     // 页面加载时执行
   },
-
-  // 切换标签页
-  changeTab: function(e) {
-    const index = e.currentTarget.dataset.index;
-    this.setData({
-      activeTab: index
-    });
-    
-    // 根据不同的标签加载不同的内容
-    let sortedList = [...this.data.tipsList];
-    if (index === 0) {
-      // 按时间排序
-      sortedList.sort((a, b) => new Date(b.time) - new Date(a.time));
-    } else if (index === 1) {
-      // 按点赞数排序
-      sortedList.sort((a, b) => b.likes - a.likes);
-    } else if (index === 2) {
-      // 按评论数排序
-      sortedList.sort((a, b) => b.comments - a.comments);
-    }
-    
-    this.setData({
-      tipsList: sortedList
-    });
-  },
-
-  // 点赞文章
-  likeTip: function(e) {
-    const id = e.currentTarget.dataset.id;
-    const tipsList = [...this.data.tipsList];
-    const index = tipsList.findIndex(item => item.id === id);
-    
-    if (index !== -1) {
-      tipsList[index].likes += 1;
-      this.setData({
-        tipsList: tipsList
-      });
-      
-      wx.showToast({
-        title: '点赞成功',
-        icon: 'success',
-        duration: 1000
-      });
-    }
-  },
-
-  // 查看文章详情
-  viewDetail: function(e) {
-    const id = e.currentTarget.dataset.id;
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
-    });
-  },
-
-  // 发表新技巧
-  addNewTip: function() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
-    });
-  }
 })
