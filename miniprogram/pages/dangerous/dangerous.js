@@ -1,4 +1,7 @@
 // pages/dangerous/dangerous.js
+// 引入位置权限工具
+const locationUtils = require('../../utils/location.js');
+
 Page({
   data: {
     latitude: 39.908823,  // 默认地图中心纬度
@@ -120,20 +123,17 @@ Page({
 
   getUserLocation: function() {
     const that = this;
-    wx.getLocation({
-      type: 'gcj02',
-      success: function(res) {
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
-        });
-      },
-      fail: function() {
-        wx.showToast({
-          title: '获取位置失败',
-          icon: 'none'
-        });
-      }
+    // 使用位置权限工具替代直接调用wx.getFuzzyLocation
+    locationUtils.checkAndRequestLocation(true, function(res) {
+      that.setData({
+        latitude: res.latitude,
+        longitude: res.longitude
+      });
+    }, function(error) {
+      wx.showToast({
+        title: '获取位置失败',
+        icon: 'none'
+      });
     });
   },
 
@@ -178,17 +178,14 @@ Page({
     
     // 如果没有选择位置，使用当前位置
     if (!tempMarker) {
-      wx.getLocation({
-        type: 'gcj02',
-        success: function(locationRes) {
-          that.showDangerTypeSelector(locationRes.latitude, locationRes.longitude);
-        },
-        fail: function() {
-          wx.showToast({
-            title: '获取位置失败',
-            icon: 'none'
-          });
-        }
+      // 使用位置权限工具替代直接调用wx.getFuzzyLocation
+      locationUtils.checkAndRequestLocation(true, function(locationRes) {
+        that.showDangerTypeSelector(locationRes.latitude, locationRes.longitude);
+      }, function(error) {
+        wx.showToast({
+          title: '获取位置失败',
+          icon: 'none'
+        });
       });
       return;
     }
