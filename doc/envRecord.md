@@ -1,4 +1,23 @@
 
+---
+
+yan ‘s app
+
+wxb3d537e20c168eea
+
+uploadFile合法域名：
+https://636c-cloud1-9gtoy95l7fff68cd-1358767039.cos.ap-shanghai.myqcloud.com
+
+env of cloud:
+cloud1-9gtoy95l7fff68cd
+
+
+---
+
+
+tt's old app
+
+
 wx05e76ad89dffdeba
 env ID: 
 ftmac0424-0ghpf0gk91a5e71a
@@ -9,6 +28,7 @@ ftmac0424-0ghpf0gk91a5e71a
 wx8239181430307725
 onmac0124-9gw8s1qdf19394af
 
+uploadFile合法域名
 https://6674-ftmac0424-0ghpf0gk91a5e71a-1356243057.cos.ap-shanghai.myqcloud.com 
 
 
