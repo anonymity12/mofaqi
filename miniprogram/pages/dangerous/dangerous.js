@@ -295,7 +295,7 @@ Page({
   },
 
   // 清除临时标记
-  clearTempMarker: function() { // 这个函数没有用
+  clearTempMarker: function() { // 这个函数在wxml 被调用
     if (this.data.tempMarker) {
       this.setData({
         tempMarker: null,

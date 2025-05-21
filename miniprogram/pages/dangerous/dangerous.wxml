@@ -18,7 +18,7 @@
       <view class="control-btn" bindtap="moveToLocation">
         <image src="/images/location.png" mode="aspectFit"></image>
       </view>
-      <view class="control-btn add-btn" bindtap="addDangerousRoad">
+      <view class="control-btn add-btn" bindtap="addDangerousRoad" wx:if="{{tempMarker}}">
         <text>+</text>
       </view>
       <view class="control-btn cancel-btn" bindtap="clearTempMarker" wx:if="{{tempMarker}}">
