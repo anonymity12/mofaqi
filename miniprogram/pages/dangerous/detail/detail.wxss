@@ -1,0 +1,54 @@
+/* pages/dangerous/detail/detail.wxss */
+.detail-container {
+  padding: 20rpx;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.type, .location, .description, .time, .marker-id {
+  margin-bottom: 30rpx;
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.value {
+  color: #333;
+  font-size: 32rpx;
+  display: block;
+}
+
+.action-buttons {
+  margin-top: 40rpx;
+  padding: 0 20rpx;
+}
+
+button {
+  margin-bottom: 20rpx;
+  border-radius: 8rpx;
+}
+
+.share-btn {
+  background: #1296db;
+  color: #fff;
+}
+
+.nav-btn {
+  background: #07c160;
+  color: #fff;
+}
+
+.loading {
+  text-align: center;
+  padding: 40rpx;
+  color: #999;
+}

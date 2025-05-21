@@ -193,7 +193,24 @@ Page({
   // 点击标记点
   markerTap: function(e) {
     const markerId = e.markerId;
+    // 临时标记不处理点击
+    if (markerId === 100) {
+      return;
+    }
     console.log('点击了标记:', markerId);
+  },
+
+  // 点击标记的气泡
+  callouttap: function(e) {
+    const markerId = e.markerId;
+    // 临时标记不处理点击
+    if (markerId === 100) {
+      return;
+    }
+    // 跳转到详情页
+    wx.navigateTo({
+      url: `/pages/dangerous/detail/detail?id=${markerId}`
+    });
   },
 
   // 添加危险路段

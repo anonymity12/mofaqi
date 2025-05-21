@@ -1,0 +1,38 @@
+<!-- pages/dangerous/detail/detail.wxml -->
+<view class="detail-container" wx:if="{{dangerInfo}}">
+  <view class="info-card">
+    <view class="type">
+      <text class="label">危险类型:</text>
+      <text class="value">{{dangerInfo.type}}</text>
+    </view>
+    
+    <view class="location">
+      <text class="label">位置信息:</text>
+      <text class="value">{{dangerInfo.location.latitude}}, {{dangerInfo.location.longitude}}</text>
+    </view>
+
+    <view class="description" wx:if="{{dangerInfo.description}}">
+      <text class="label">详细说明:</text>
+      <text class="value">{{dangerInfo.description}}</text>
+    </view>
+
+    <view class="time">
+      <text class="label">添加时间:</text>
+      <text class="value">{{dangerInfo.createdAt}}</text>
+    </view>
+
+    <view class="marker-id">
+      <text class="label">标记ID:</text>
+      <text class="value">{{dangerInfo.markerId}}</text>
+    </view>
+  </view>
+
+  <view class="action-buttons">
+    <button class="share-btn" open-type="share">分享此路段</button>
+    <button class="nav-btn" bindtap="startNavigation">导航到此处</button>
+  </view>
+</view>
+
+<view class="loading" wx:else>
+  <text>加载中...</text>
+</view>
