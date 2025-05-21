@@ -152,6 +152,11 @@ Page({
 
   // 点击地图事件
   mapTap: function(e) {
+    // 如果是点击了marker，则不处理地图点击
+    if (e.type === 'markertap') {
+      return;
+    }
+    
     const { latitude, longitude } = e.detail;
     // 设置临时标记
     const tempMarker = {
