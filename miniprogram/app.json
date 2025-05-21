@@ -4,7 +4,8 @@
     "pages/dangerous/dangerous",
     "pages/tips/tips",
     "pages/principles/principles",
-    "pages/principles/detail/detail"
+    "pages/principles/detail/detail",
+    "pages/scenic/detail/detail"
   ],
   "requiredPrivateInfos": [
     "getFuzzyLocation",

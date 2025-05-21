@@ -1,0 +1,29 @@
+<!-- pages/scenic/detail/detail.wxml -->
+<view class="detail-container" wx:if="{{scenic}}">
+  <image class="scenic-image" src="{{scenic.imageUrl}}" mode="aspectFill"></image>
+  
+  <view class="info-section">
+    <view class="title">{{scenic.title}}</view>
+    <view class="location">
+      <image class="location-icon" src="/images/location.png"></image>
+      <text>{{scenic.location}}</text>
+    </view>
+    <view class="time">{{scenic.timestamp}}</view>
+    <view class="description">{{scenic.description}}</view>
+  </view>
+
+  <view class="interaction-section">
+    <view class="like-section">
+      <image class="icon" src="/images/like.png"></image>
+      <text>{{scenic.likes || 0}}</text>
+    </view>
+    <view class="comment-section">
+      <image class="icon" src="/images/comment.png"></image>
+      <text>{{scenic.comments || 0}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="loading" wx:else>
+  <text>加载中...</text>
+</view>

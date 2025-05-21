@@ -41,13 +41,8 @@ Page({
   // 点击卡片查看详情
   viewDetail: function(e) {
     const id = e.currentTarget.dataset.id;
-    // 可以跳转到详情页
-    // wx.navigateTo({
-    //   url: '/pages/scenic/detail/detail?id=' + id
-    // })
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/scenic/detail/detail?id=' + id
     });
   },
   

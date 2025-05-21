@@ -1,0 +1,73 @@
+/* pages/scenic/detail/detail.wxss */
+.detail-container {
+  padding-bottom: 40rpx;
+}
+
+.scenic-image {
+  width: 100%;
+  height: 400rpx;
+}
+
+.info-section {
+  padding: 30rpx;
+  background: #fff;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.location-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.description {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.interaction-section {
+  display: flex;
+  padding: 30rpx;
+  background: #fff;
+  margin-top: 20rpx;
+}
+
+.like-section, .comment-section {
+  display: flex;
+  align-items: center;
+  margin-right: 40rpx;
+}
+
+.icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #999;
+}
