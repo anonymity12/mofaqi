@@ -2,6 +2,18 @@
 // 引入位置权限工具
 const locationUtils = require('../../utils/location.js');
 
+const INIT_TIME= 250519231150; // 初始时间戳，用于计算markerId
+// 添加日期格式化函数
+const formatDate = (date) => {
+  const year = date.getFullYear().toString().slice(-2);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+  return year + month + day + hours + minutes + seconds;
+};
+
 Page({
   data: {
     latitude: 39.908823,  // 默认地图中心纬度
@@ -62,7 +74,7 @@ Page({
         }
       }
     ],
-    dangerTypes: ['路面湿滑', '路面坑洼', '落石', '急转弯', '视线不佳', '其他'],
+    dangerTypes: ['路面湿滑', '电子眼', '炮弹坑', '容易雾天', 'NPC', '其他'], // 危险类型列表
     tempMarker: null  // 用于存储临时标记点
   },
 
@@ -85,7 +97,7 @@ Page({
         wx.hideLoading();
         if (res.result && res.result.success) {
           const markers = res.result.data.map(item => ({
-            id: item._id,
+            id: item.markerId,
             latitude: item.location.latitude,
             longitude: item.location.longitude,
             title: item.type,
@@ -103,6 +115,7 @@ Page({
             }
           }));
           that.setData({ markers });
+          console.log('加载危险路段成功:', markers);
         } else {
           wx.showToast({
             title: '加载失败',
@@ -142,14 +155,15 @@ Page({
     const { latitude, longitude } = e.detail;
     // 设置临时标记
     const tempMarker = {
-      id: -1,  // 使用-1作为临时标记的ID
+      id: 100,  // 使用-1作为临时标记的ID
+      markerId: 100,  // 使用-1作为临时标记的ID
       latitude,
       longitude,
       iconPath: '/images/danger_marker.png',
-      width: 30,
-      height: 30,
+      width: 40,
+      height: 40,
       callout: {
-        content: '点击"添加"按钮\n在此处标记危险路段',
+        content: '点击"+"按钮\n在此处标记不良路段',
         color: '#FF0000',
         fontSize: 12,
         borderRadius: 5,
@@ -158,10 +172,16 @@ Page({
         display: 'ALWAYS'
       }
     };
-
+    // 清除之前的临时标记
+    if (this.data.tempMarker) {
+      this.setData({
+        markers: this.data.markers.filter(m => m.markerId !== 100)
+      });
+    }
+    // 设置新的临时标记
     this.setData({
       tempMarker,
-      markers: [...this.data.markers.filter(m => m.id !== -1), tempMarker]
+      markers: [...this.data.markers.filter(m => m.markerId !== 100), tempMarker]
     });
   },
 
@@ -173,6 +193,7 @@ Page({
 
   // 添加危险路段
   addDangerousRoad: function() {
+    console.log('开始添加危险路段');
     const that = this;
     const { tempMarker } = this.data;
     
@@ -196,6 +217,7 @@ Page({
 
   // 显示危险类型选择器
   showDangerTypeSelector: function(latitude, longitude) {
+    console.log('开始选择危险类型:', latitude, longitude);
     const that = this;
     wx.showActionSheet({
       itemList: this.data.dangerTypes,
@@ -205,11 +227,14 @@ Page({
           wx.showLoading({
             title: '正在提交...',
           });
-          
+          const markerIdTmp = Number(formatDate(new Date())); // 使用formatDate函数
+          console.log('markerIdTmp:', markerIdTmp);
+          console.log('markerIdTmp subtract:', markerIdTmp - INIT_TIME);
           // 调用云函数
           wx.cloud.callFunction({
             name: 'addDangerousRoad',
             data: {
+              markerId: markerIdTmp - INIT_TIME,
               dangerType: dangerType,
               latitude: latitude,
               longitude: longitude
@@ -242,13 +267,14 @@ Page({
                 };
                 // 移除临时标记，添加新标记
                 const markers = that.data.markers
-                  .filter(m => m.id !== -1)
+                  .filter(m => m.markerId !== 100)
                   .concat(newMarker);
                 that.setData({ 
                   markers,
                   tempMarker: null
                 });
               } else {
+                console.error('添加危险路段失败:', res);
                 wx.showToast({
                   title: '添加失败',
                   icon: 'none'
@@ -269,11 +295,11 @@ Page({
   },
 
   // 清除临时标记
-  clearTempMarker: function() {
+  clearTempMarker: function() { // 这个函数没有用
     if (this.data.tempMarker) {
       this.setData({
         tempMarker: null,
-        markers: this.data.markers.filter(m => m.id !== -1)
+        markers: this.data.markers.filter(m => m.markerId !== 100)
       });
     }
   },

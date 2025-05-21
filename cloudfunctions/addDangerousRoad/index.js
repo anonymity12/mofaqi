@@ -10,8 +10,11 @@ exports.main = async (event, context) => {
     dangerType,
     latitude,
     longitude,
+    markerId,
     description = '' // 可选的描述信息
   } = event
+
+  console.log('接收到的参数:', event);
   
   try {
     const result = await db.collection('dangerous_roads').add({
@@ -23,7 +26,8 @@ exports.main = async (event, context) => {
         },
         description,
         createdAt: db.serverDate(),
-        createdBy: event.userInfo.openId
+        createdBy: event.userInfo.openId,
+        markerId: markerId
       }
     })
     return {

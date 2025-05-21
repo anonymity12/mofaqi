@@ -21,8 +21,8 @@
       <view class="control-btn add-btn" bindtap="addDangerousRoad">
         <text>+</text>
       </view>
-      <view class="control-btn" bindtap="clearTempMarker" wx:if="{{tempMarker}}">
-        <text>取消</text>
+      <view class="control-btn cancel-btn" bindtap="clearTempMarker" wx:if="{{tempMarker}}">
+        <text>X</text>
       </view>
     </view>
     

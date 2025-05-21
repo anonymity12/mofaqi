@@ -1,9 +1,5 @@
 <!--pages/principles/principles.wxml-->
 <view class="container">
-  <view class="page-header">
-    <text class="page-title">摩托车原理科普</text>
-  </view>
-  
   <!-- 分类菜单 -->
   <view class="category-menu">
     <view class="category-item {{currentCategory === 'engine' ? 'active' : ''}}" bindtap="switchCategory" data-category="engine">

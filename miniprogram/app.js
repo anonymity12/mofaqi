@@ -1,6 +1,7 @@
 const config = require('./config')
 const themeListeners = []
 global.isDemo = true
+
 App({
   
   onLaunch(opts, data) {
