@@ -47,6 +47,12 @@ button {
   color: #fff;
 }
 
+.delete-btn {
+  background: #e64340;
+  color: #fff;
+  margin-top: 20rpx;
+}
+
 .loading {
   text-align: center;
   padding: 40rpx;

@@ -30,6 +30,7 @@
   <view class="action-buttons">
     <button class="share-btn" open-type="share">分享此路段</button>
     <button class="nav-btn" bindtap="startNavigation">导航到此处</button>
+    <button class="delete-btn" bindtap="deleteDanger">删除此标记</button>
   </view>
 </view>
 

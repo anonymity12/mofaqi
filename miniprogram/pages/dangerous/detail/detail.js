@@ -20,6 +20,57 @@ Page({
     });
   },
 
+  deleteDanger: function() {
+    const that = this;
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个危险标记吗？',
+      success(res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中...',
+          });
+          
+          wx.cloud.callFunction({
+            name: 'deleteDangerMarker',
+            data: {
+              markerId: that.data.dangerInfo.markerId
+            },
+            success: res => {
+              wx.hideLoading();
+              if (res.result && res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+                // 返回上一页并刷新列表
+                const pages = getCurrentPages();
+                const prevPage = pages[pages.length - 2];
+                if (prevPage && prevPage.loadDangerousMarkers) {
+                  prevPage.loadDangerousMarkers();
+                }
+                wx.navigateBack();
+              } else {
+                wx.showToast({
+                  title: '删除失败',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              });
+              console.error('删除失败:', err);
+            }
+          });
+        }
+      }
+    });
+  },
+
   loadDangerDetail: function(markerId) {
     wx.showLoading({
       title: '加载中...',
