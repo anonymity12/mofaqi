@@ -1,23 +1,24 @@
 {
-    "libVersion": "2.25.4",
-    "projectname": "mofaqi",
-    "setting": {
-        "urlCheck": true,
-        "coverView": true,
-        "lazyloadPlaceholderEnable": false,
-        "skylineRenderEnable": false,
-        "preloadBackgroundData": false,
-        "autoAudits": false,
-        "useApiHook": true,
-        "useApiHostProcess": true,
-        "showShadowRootInWxmlPanel": false,
-        "useStaticServer": true,
-        "useLanDebug": false,
-        "showES6CompileOption": false,
-        "compileHotReLoad": true,
-        "bigPackageSizeSupport": false,
-        "checkInvalidKey": true,
-        "useIsolateContext": false,
-        "ignoreDevUnusedFiles": true
-    }
+  "libVersion": "2.25.4",
+  "projectname": "mofaqi",
+  "setting": {
+    "urlCheck": true,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showShadowRootInWxmlPanel": false,
+    "useStaticServer": true,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "compileHotReLoad": true,
+    "bigPackageSizeSupport": false,
+    "checkInvalidKey": true,
+    "useIsolateContext": false,
+    "ignoreDevUnusedFiles": true
+  },
+  "condition": {}
 }

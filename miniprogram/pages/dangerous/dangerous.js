@@ -75,6 +75,14 @@ Page({
       }
     ],
     dangerTypes: ['路面湿滑', '电子眼', '炮弹坑', '容易雾天', 'NPC', '其他'], // 危险类型列表
+    iconMapping: {
+      '路面湿滑': '/images/dangerMarkers/slippery_marker.png',
+      '电子眼': '/images/dangerMarkers/camera_marker.png',
+      '炮弹坑': '/images/dangerMarkers/crater_marker.png',
+      '容易雾天': '/images/dangerMarkers/fog_marker.png',
+      'NPC': '/images/dangerMarkers/npc_marker.png',
+      '其他': '/images/dangerMarkers/danger_marker.png'
+    },
     tempMarker: null  // 用于存储临时标记点
   },
 
@@ -96,12 +104,11 @@ Page({
       success: function(res) {
         wx.hideLoading();
         if (res.result && res.result.success) {
-          const markers = res.result.data.map(item => ({
-            id: item.markerId,
+          const markers = res.result.data.map(item => ({            id: item.markerId,
             latitude: item.location.latitude,
             longitude: item.location.longitude,
             title: item.type,
-            iconPath: '/images/danger_marker.png',
+            iconPath: that.data.iconMapping[item.type] || '/images/dangerMarkers/danger_marker.png',
             width: 30,
             height: 30,
             callout: {
@@ -269,12 +276,11 @@ Page({
                   icon: 'success'
                 });
                 // 添加新标记到地图
-                const newMarker = {
-                  id: new Date().getTime(),
+                const newMarker = {                  id: new Date().getTime(),
                   latitude: latitude,
                   longitude: longitude,
                   title: dangerType,
-                  iconPath: '/images/danger_marker.png',
+                  iconPath: that.data.iconMapping[dangerType] || '/images/dangerMarkers/danger_marker.png',
                   width: 30,
                   height: 30,
                   callout: {
