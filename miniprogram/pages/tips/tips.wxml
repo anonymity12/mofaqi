@@ -1,23 +1,13 @@
 <!--pages/tips/tips.wxml-->
 <view class="container">
   <view class="page-header">
-    <text class="page-title">安全驾驶技巧</text>
+    <text class="page-title">成都摩友鸣谢榜</text>
   </view>
-  
-  
-  <!-- 列表 -->
-  <view class="tips-list">
-    <view class="tip-card" wx:for="{{tipsList}}" wx:key="id" bindtap="viewDetail" data-id="{{item.id}}">
-      <view class="tip-content">
-        <view class="tip-title">{{item.title}}</view>
-        <view class="tip-text">{{item.content}}</view>
-      </view>
-    </view>
-  </view>
-  
-  <!-- 空状态展示 -->
-  <view class="empty-state" wx:if="{{tipsList.length === 0}}">
-    <image class="empty-image" src="/images/empty.png"></image>
-    <text class="empty-text">暂无驾驶技巧分享</text>
+  <view class="thanks-list">
+    <view class="thanks-item">• 半馋饿而得梨</view>
+    <view class="thanks-item">• YAN</view>
+    <view class="thanks-item">• 梵煜</view>
+    <view class="thanks-item">• Dylan_Hugh</view>
+    <view class="thanks-item">• 骑摩托写代码的天天</view>
   </view>
 </view>

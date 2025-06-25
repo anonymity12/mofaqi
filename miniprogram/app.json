@@ -36,17 +36,18 @@
         "iconPath": "images/dangerous_normal.png",
         "selectedIconPath": "images/dangerous_selected.png"
       },
-      {
-        "pagePath": "pages/tips/tips",
-        "text": "驾驶技巧",
-        "iconPath": "images/tips_normal.png",
-        "selectedIconPath": "images/tips_selected.png"
-      },
+
       {
         "pagePath": "pages/principles/principles",
         "text": "原理科普",
         "iconPath": "images/principles_normal.png",
         "selectedIconPath": "images/principles_selected.png"
+      },
+      {
+        "pagePath": "pages/tips/tips",
+        "text": "鸣谢",
+        "iconPath": "images/tips_normal.png",
+        "selectedIconPath": "images/tips_selected.png"
       }
     ]
   },
