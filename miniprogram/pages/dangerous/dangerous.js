@@ -76,11 +76,11 @@ Page({
     ],
     dangerTypes: ['路面湿滑', '电子眼', '炮弹坑', '容易雾天', 'NPC', '其他'], // 危险类型列表
     iconMapping: {
-      '路面湿滑': '/images/dangerMarkers/slippery_marker.png',
-      '电子眼': '/images/dangerMarkers/camera_marker.png',
-      '炮弹坑': '/images/dangerMarkers/crater_marker.png',
-      '容易雾天': '/images/dangerMarkers/fog_marker.png',
-      'NPC': '/images/dangerMarkers/npc_marker.png',
+      '路面湿滑': '/images/dangerMarkers/slippery_marker1.png',
+      '电子眼': '/images/dangerMarkers/camera_marker1.png',
+      '炮弹坑': '/images/dangerMarkers/crater_marker1.png',
+      '容易雾天': '/images/dangerMarkers/fog_marker1.png',
+      'NPC': '/images/dangerMarkers/npc_marker2.png',
       '其他': '/images/dangerMarkers/danger_marker.png'
     },
     tempMarker: null  // 用于存储临时标记点
@@ -109,8 +109,8 @@ Page({
             longitude: item.location.longitude,
             title: item.type,
             iconPath: that.data.iconMapping[item.type] || '/images/dangerMarkers/danger_marker.png',
-            width: 30,
-            height: 30,
+            width: 40,
+            height: 40,
             callout: {
               content: item.type,
               color: '#FF0000',
@@ -281,8 +281,8 @@ Page({
                   longitude: longitude,
                   title: dangerType,
                   iconPath: that.data.iconMapping[dangerType] || '/images/dangerMarkers/danger_marker.png',
-                  width: 30,
-                  height: 30,
+                  width: 40,
+                  height: 40,
                   callout: {
                     content: dangerType,
                     color: '#FF0000',
