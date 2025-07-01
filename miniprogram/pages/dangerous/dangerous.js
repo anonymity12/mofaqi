@@ -84,6 +84,14 @@ Page({
       'NPC': '/images/dangerMarkers/npc_marker2.png',
       '其他': '/images/dangerMarkers/danger_marker.png'
     },
+    iconMappingAlpha: {
+      '路面湿滑': '/images/dangerMarkers/slippery_marker1_alpha.png',
+      '电子眼': '/images/dangerMarkers/camera_marker1_alpha.png',
+      '炮弹坑': '/images/dangerMarkers/crater_marker1_alpha.png',
+      '容易雾天': '/images/dangerMarkers/fog_marker1_alpha.png',
+      'NPC': '/images/dangerMarkers/npc_marker2_alpha.png',
+      '其他': '/images/dangerMarkers/danger_marker_alpha.png'
+    },
     tempMarker: null  // 用于存储临时标记点
   },
 
@@ -105,23 +113,35 @@ Page({
       success: function(res) {
         wx.hideLoading();
         if (res.result && res.result.success) {
-          const markers = res.result.data.map(item => ({            id: item.markerId,
-            latitude: item.location.latitude,
-            longitude: item.location.longitude,
-            title: item.type,
-            iconPath: that.data.iconMapping[item.type] || '/images/dangerMarkers/danger_marker.png',
-            width: 40,
-            height: 40,
-            callout: {
-              content: item.type,
-              color: '#FF0000',
-              fontSize: 12,
-              borderRadius: 5,
-              bgColor: '#FFFFFF',
-              padding: 5,
-              display: 'BYCLICK'
-            }
-          }));
+          const now = new Date().getHours();
+          const markers = res.result.data.map(item => {
+            // 注意： 只有 NPC 类型的标记才有 begin_hour 和 end_hour
+            const begin = item.begin_hour ? item.begin_hour : 0;
+            const end = item.end_hour ? item.end_hour : 24;   
+            const isActive = (now >= begin && now < end);
+            // 不透明的 icon： dangerType 对应的 icon
+            const typeIcon = that.data.iconMapping[item.type] || '/images/dangerMarkers/danger_marker.png';
+            // 半透明 icon ； todo
+            const typeIconAlpha = that.data.iconMappingAlpha[item.type] || '/images/dangerMarkers/danger_marker_alpha.png';
+            return {
+              id: item.markerId,
+              latitude: item.latitude,
+              longitude: item.longitude,
+              title: item.dangerType,
+              iconPath: isActive ? typeIcon : typeIconAlpha,
+              width: 40,
+              height: 40,
+              callout: {
+                content: item.type,
+                color: '#FF0000',
+                fontSize: 12,
+                borderRadius: 5,
+                bgColor: '#FFFFFF',
+                padding: 5,
+                display: 'BYCLICK'
+              },
+            };
+          });
           that.setData({ markers });
           console.log('加载危险路段成功:', markers);
         } else {
