@@ -3,6 +3,7 @@
 const locationUtils = require('../../utils/location.js');
 
 const INIT_TIME= 250519231150; // 初始时间戳，用于计算markerId
+const TEMP_MARKER_ID = 100; // 临时标记点的ID
 // 添加日期格式化函数
 const formatDate = (date) => {
   const year = date.getFullYear().toString().slice(-2);
@@ -167,8 +168,8 @@ Page({
     const { latitude, longitude } = e.detail;
     // 设置临时标记
     const tempMarker = {
-      id: 100,  // 使用-1作为临时标记的ID
-      markerId: 100,  // 使用-1作为临时标记的ID
+      id: TEMP_MARKER_ID, 
+      markerId: TEMP_MARKER_ID, 
       latitude,
       longitude,
       iconPath: '/images/danger_marker.png',
@@ -187,13 +188,13 @@ Page({
     // 清除之前的临时标记
     if (this.data.tempMarker) {
       this.setData({
-        markers: this.data.markers.filter(m => m.markerId !== 100)
+        markers: this.data.markers.filter(m => m.markerId !== TEMP_MARKER_ID)
       });
     }
     // 设置新的临时标记
     this.setData({
       tempMarker,
-      markers: [...this.data.markers.filter(m => m.markerId !== 100), tempMarker]
+      markers: [...this.data.markers.filter(m => m.markerId !== TEMP_MARKER_ID), tempMarker]
     });
   },
 
@@ -201,7 +202,7 @@ Page({
   markerTap: function(e) {
     const markerId = e.markerId;
     // 临时标记不处理点击
-    if (markerId === 100) {
+    if (markerId === TEMP_MARKER_ID) {
       return;
     }
     console.log('点击了标记:', markerId);
@@ -211,7 +212,7 @@ Page({
   callouttap: function(e) {
     const markerId = e.markerId;
     // 临时标记不处理点击
-    if (markerId === 100) {
+    if (markerId === TEMP_MARKER_ID) {
       return;
     }
     // 跳转到详情页
@@ -295,7 +296,7 @@ Page({
                 };
                 // 移除临时标记，添加新标记
                 const markers = that.data.markers
-                  .filter(m => m.markerId !== 100)
+                  .filter(m => m.markerId !== TEMP_MARKER_ID)
                   .concat(newMarker);
                 that.setData({ 
                   markers,
@@ -327,7 +328,7 @@ Page({
     if (this.data.tempMarker) {
       this.setData({
         tempMarker: null,
-        markers: this.data.markers.filter(m => m.markerId !== 100)
+        markers: this.data.markers.filter(m => m.markerId !== TEMP_MARKER_ID)
       });
     }
   },
