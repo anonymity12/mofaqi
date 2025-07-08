@@ -1,0 +1,9 @@
+{
+  "name": "updateDangerNpcTime",
+  "version": "1.0.0",
+  "description": "云函数-更新危险路段NPC出没时间",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

@@ -1,7 +1,10 @@
 // pages/dangerous/detail/detail.js
 Page({
   data: {
-    dangerInfo: null
+    dangerInfo: null,
+    showNpcTimeDialog: false,
+    npcBeginHour: 0,
+    npcEndHour: 23
   },
 
   onLoad: function (options) {
@@ -102,5 +105,63 @@ Page({
         console.error('获取危险路段详情失败:', err);
       }
     });
-  }
+  },
+
+  editNpcTime: function() {
+    // 打开弹窗并初始化输入值
+    const { dangerInfo } = this.data;
+    this.setData({
+      showNpcTimeDialog: true,
+      npcBeginHour: dangerInfo.begin_hour !== undefined ? dangerInfo.begin_hour : 0,
+      npcEndHour: dangerInfo.end_hour !== undefined ? dangerInfo.end_hour : 23
+    });
+  },
+
+  onBeginHourInput: function(e) {
+    this.setData({ npcBeginHour: Number(e.detail.value) });
+  },
+
+  onEndHourInput: function(e) {
+    this.setData({ npcEndHour: Number(e.detail.value) });
+  },
+
+  cancelNpcTime: function() {
+    this.setData({ showNpcTimeDialog: false });
+  },
+
+  confirmNpcTime: function() {
+    const { npcBeginHour, npcEndHour, dangerInfo } = this.data;
+    if (npcBeginHour < 0 || npcBeginHour > 23 || npcEndHour < 0 || npcEndHour > 23 || npcBeginHour > npcEndHour) {
+      wx.showToast({ title: '时间输入有误', icon: 'none' });
+      return;
+    }
+    wx.showLoading({ title: '提交中...' });
+    wx.cloud.callFunction({
+      name: 'updateDangerNpcTime',
+      data: {
+        markerId: dangerInfo.markerId,
+        begin_hour: npcBeginHour,
+        end_hour: npcEndHour
+      },
+      success: res => {
+        wx.hideLoading();
+        if (res.result && res.result.success) {
+          wx.showToast({ title: '修改成功', icon: 'success' });
+          // 更新本地数据
+          this.setData({
+            'dangerInfo.begin_hour': npcBeginHour,
+            'dangerInfo.end_hour': npcEndHour,
+            showNpcTimeDialog: false
+          });
+        } else {
+          wx.showToast({ title: '修改失败', icon: 'none' });
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        wx.showToast({ title: '修改失败', icon: 'none' });
+        console.error('修改NPC时间失败:', err);
+      }
+    });
+  },
 })
