@@ -92,10 +92,32 @@ Page({
       'NPC': '/images/dangerMarkers/npc_marker2_alpha.png',
       '其他': '/images/dangerMarkers/danger_marker_alpha.png'
     },
-    tempMarker: null  // 用于存储临时标记点
+    tempMarker: null,  // 用于存储临时标记点
+    userInfo: null, // 当前用户信息
+    wxid: '', // 当前用户openid
+    avatarUrl: '', // 当前用户头像
   },
 
   onLoad: function (options) {
+    const that = this;
+    // 获取用户openid
+    wx.cloud.callFunction({
+      name: 'login',
+      success: function(res) {
+        that.setData({ wxid: res.result.openid });
+      }
+    });
+    // 获取用户头像
+    wx.getUserProfile({
+      desc: '用于标记提交者头像',
+      success: function(res) {
+        that.setData({ avatarUrl: res.userInfo.avatarUrl, userInfo: res.userInfo });
+      },
+      fail: function() {
+        // 用户拒绝授权头像
+        that.setData({ avatarUrl: '/images/avatar1.png' });
+      }
+    });
     // 获取用户当前位置
     this.getUserLocation();
     // 从云数据库加载危险路段标记
@@ -287,7 +309,8 @@ Page({
               markerId: markerIdTmp - INIT_TIME,
               dangerType: dangerType,
               latitude: latitude,
-              longitude: longitude
+              longitude: longitude,
+              submitters: [{ wxid: that.data.wxid, avatarUrl: that.data.avatarUrl, time: Date.now() }]
             },
             success: function(res) {
               wx.hideLoading();

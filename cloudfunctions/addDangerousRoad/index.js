@@ -27,7 +27,8 @@ exports.main = async (event, context) => {
         description,
         createdAt: db.serverDate(),
         createdBy: event.userInfo.openId,
-        markerId: markerId
+        markerId: markerId,
+        submitters: Array.isArray(event.submitters) ? event.submitters : [{ wxid: event.userInfo.openId, avatarUrl: '', time: Date.now() }]
       }
     })
     return {
