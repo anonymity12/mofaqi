@@ -31,6 +31,15 @@
     </view>
   </view>
 
+  
+
+  <view class="action-buttons">
+    <button class="share-btn" open-type="share">分享此路段</button>
+    <button class="nav-btn" bindtap="startNavigation">导航到此处</button>
+    <button class="delete-btn" bindtap="deleteDanger">删除此标记</button>
+    <button wx:if="{{dangerInfo.type === 'NPC'}}" class="npc-time-btn" bindtap="editNpcTime">修改NPC出没时间</button>
+  </view>
+
   <view class="submitters" wx:if="{{dangerInfo.submitters && dangerInfo.submitters.length}}">
     <text class="label">提交者:</text>
     <view class="submitter-list">
@@ -39,13 +48,6 @@
         <text class="submitter-id">摩友{{item.wxid}}</text>
       </block>
     </view>
-  </view>
-
-  <view class="action-buttons">
-    <button class="share-btn" open-type="share">分享此路段</button>
-    <button class="nav-btn" bindtap="startNavigation">导航到此处</button>
-    <button class="delete-btn" bindtap="deleteDanger">删除此标记</button>
-    <button wx:if="{{dangerInfo.type === 'NPC'}}" class="npc-time-btn" bindtap="editNpcTime">修改NPC出没时间</button>
   </view>
 
   <!-- NPC时间编辑弹窗 -->

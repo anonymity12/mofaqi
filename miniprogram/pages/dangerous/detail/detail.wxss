@@ -119,3 +119,36 @@ button {
   gap: 32rpx;
   margin-top: 16rpx;
 }
+
+.submitter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.submitter-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2rpx solid #eee;
+  margin-bottom: 4rpx;
+}
+
+.submitter-id {
+  font-size: 20rpx;
+  color: #888;
+  text-align: center;
+  width: 64rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.submitter-list block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16.66%; /* 100/6=16.66% 一行6个 */
+  box-sizing: border-box;
+}

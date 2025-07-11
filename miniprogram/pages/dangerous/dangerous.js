@@ -107,17 +107,7 @@ Page({
         that.setData({ wxid: res.result.openid });
       }
     });
-    // 获取用户头像
-    wx.getUserProfile({
-      desc: '用于标记提交者头像',
-      success: function(res) {
-        that.setData({ avatarUrl: res.userInfo.avatarUrl, userInfo: res.userInfo });
-      },
-      fail: function() {
-        // 用户拒绝授权头像
-        that.setData({ avatarUrl: '/images/avatar1.png' });
-      }
-    });
+    // 头像昵称采用新规范，需在wxml中添加button open-type="chooseAvatar" bindchooseavatar="onChooseAvatar"
     // 获取用户当前位置
     this.getUserLocation();
     // 从云数据库加载危险路段标记
@@ -137,7 +127,6 @@ Page({
         if (res.result && res.result.success) {
           const now = new Date().getHours();
           const markers = res.result.data.map(item => {
-            console.log('处理标记:', item);
             // 注意： 只有 NPC 类型的标记才有 begin_hour 和 end_hour
             const begin = item.begin_hour ? item.begin_hour : 0;
             const end = item.end_hour ? item.end_hour : 24;   
@@ -387,5 +376,11 @@ Page({
   onReady: function() {
     // 创建地图上下文
     this.mapCtx = wx.createMapContext('dangerMap');
-  }
+  },
+
+  // 新增：处理头像选择事件
+  onChooseAvatar: function(e) {
+    const { avatarUrl } = e.detail;
+    this.setData({ avatarUrl });
+  },
 })

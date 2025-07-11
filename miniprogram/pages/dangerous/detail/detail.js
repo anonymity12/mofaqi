@@ -85,9 +85,13 @@ Page({
       success: res => {
         wx.hideLoading();
         if (res.result && res.result.success) {
+          const info = res.result.data;
+          info.createdAt = this.formatChinaTime(info.createdAt);
           this.setData({
-            dangerInfo: res.result.data
+            dangerInfo: info
           });
+          // 格式化时间
+          console.log('危险路段详情:', info);
         } else {
             console.error('加载危险路段详情失败:', res);
           wx.showToast({
@@ -164,5 +168,28 @@ Page({
         console.error('修改NPC时间失败2:', err);
       }
     });
+  },
+
+  // 格式化中国时区时间，支持ISO字符串（如2025-07-11T15:41:20.832Z）
+  formatChinaTime: function(date) {
+    console.log('will formatChinaTime:', date);
+    if (!date) return '';
+    let d = date;
+    // 兼容云开发返回的 $date 对象
+    if (typeof date === 'object' && date.$date) d = date.$date;
+    // 兼容ISO字符串
+    if (typeof d === 'string' && d.endsWith('Z')) d = new Date(d);
+    else if (typeof d === 'string' || typeof d === 'number') d = new Date(d);
+    if (!(d instanceof Date) || isNaN(d.getTime())) return '';
+    // 转为中国时区
+    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    const chinaTime = new Date(utc + 8 * 3600000);
+    const y = chinaTime.getFullYear();
+    const m = (chinaTime.getMonth() + 1).toString().padStart(2, '0');
+    const day = chinaTime.getDate().toString().padStart(2, '0');
+    const h = chinaTime.getHours().toString().padStart(2, '0');
+    const min = chinaTime.getMinutes().toString().padStart(2, '0');
+    const s = chinaTime.getSeconds().toString().padStart(2, '0');
+    return `${y}-${m}-${day} ${h}:${min}:${s}`;
   },
 })
