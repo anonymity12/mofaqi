@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
     return { success: false, message: 'markerId required' }
   }
   try {
-    const res = await db.collection('dangerousRoads').where({ markerId }).update({
+    const res = await db.collection('dangerous_roads').where({ markerId }).update({
       data: {
         begin_hour,
         end_hour

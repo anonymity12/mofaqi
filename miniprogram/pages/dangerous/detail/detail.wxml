@@ -25,6 +25,10 @@
       <text class="label">标记ID:</text>
       <text class="value">{{dangerInfo.markerId}}</text>
     </view>
+    <view wx:if="{{dangerInfo.begin_hour !== undefined && dangerInfo.end_hour !== undefined}}" class="npc-hour-info">
+      <text class="label">NPC出没时间:</text>
+      <text class="value">{{dangerInfo.begin_hour}}:00 - {{dangerInfo.end_hour}}:00</text>
+    </view>
   </view>
 
   <view class="submitters" wx:if="{{dangerInfo.submitters && dangerInfo.submitters.length}}">

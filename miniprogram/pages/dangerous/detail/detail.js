@@ -154,13 +154,14 @@ Page({
             showNpcTimeDialog: false
           });
         } else {
-          wx.showToast({ title: '修改失败', icon: 'none' });
+          wx.showToast({ title: '修改失败1: ' + res});
+          console.error('修改NPC时间失败1:', res);
         }
       },
       fail: err => {
         wx.hideLoading();
-        wx.showToast({ title: '修改失败', icon: 'none' });
-        console.error('修改NPC时间失败:', err);
+        wx.showToast({ title: '修改失败2: ' + (err && err.errMsg ? err.errMsg : '未知错误'), icon: 'none' });
+        console.error('修改NPC时间失败2:', err);
       }
     });
   },

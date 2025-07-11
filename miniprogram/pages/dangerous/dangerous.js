@@ -89,7 +89,7 @@ Page({
       '电子眼': '/images/dangerMarkers/camera_marker1_alpha.png',
       '炮弹坑': '/images/dangerMarkers/crater_marker1_alpha.png',
       '容易雾天': '/images/dangerMarkers/fog_marker1_alpha.png',
-      'NPC': '/images/dangerMarkers/npc_marker2_alpha.png',
+      'NPC': '/images/dangerMarkers/npc-alpha3.png',
       '其他': '/images/dangerMarkers/danger_marker_alpha.png'
     },
     tempMarker: null,  // 用于存储临时标记点
