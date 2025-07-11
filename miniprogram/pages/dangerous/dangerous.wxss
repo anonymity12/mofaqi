@@ -82,3 +82,12 @@
   font-size: 22rpx;
   color: #999;
 }
+
+.user-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2rpx solid #eee;
+  margin-left: 16rpx;
+}

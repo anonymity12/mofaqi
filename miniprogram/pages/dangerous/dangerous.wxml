@@ -34,7 +34,12 @@
         <text>点击地图可添加点位标记</text>
       </view>
       <text class="legend-tip">点击标记可查看详情</text>
-      <button open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">选择头像</button>
+      <block wx:if="{{!avatarUrl}}">
+        <button open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">摩友头像</button>
+      </block>
+      <block wx:elif="{{avatarUrl}}">
+        <image class="user-avatar" src="{{avatarUrl}}" mode="aspectFill" />
+      </block>
     </view>
   </view>
 </view>
