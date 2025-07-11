@@ -137,6 +137,7 @@ Page({
         if (res.result && res.result.success) {
           const now = new Date().getHours();
           const markers = res.result.data.map(item => {
+            console.log('处理标记:', item);
             // 注意： 只有 NPC 类型的标记才有 begin_hour 和 end_hour
             const begin = item.begin_hour ? item.begin_hour : 0;
             const end = item.end_hour ? item.end_hour : 24;   
@@ -147,8 +148,8 @@ Page({
             const typeIconAlpha = that.data.iconMappingAlpha[item.type] || '/images/dangerMarkers/danger_marker_alpha.png';
             return {
               id: item.markerId,
-              latitude: item.latitude,
-              longitude: item.longitude,
+              latitude: item.location.latitude,
+              longitude: item.location.longitude,
               title: item.dangerType,
               iconPath: isActive ? typeIcon : typeIconAlpha,
               width: 40,
