@@ -321,7 +321,8 @@ Page({
                   icon: 'success'
                 });
                 // 添加新标记到地图
-                const newMarker = {                  id: new Date().getTime(),
+                const newMarker = {                  
+                  id: markerIdTmp - INIT_TIME,
                   latitude: latitude,
                   longitude: longitude,
                   title: dangerType,
