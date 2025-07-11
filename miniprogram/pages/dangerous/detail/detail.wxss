@@ -58,3 +58,64 @@ button {
   padding: 40rpx;
   color: #999;
 }
+
+/* 弹窗遮罩层 */
+.npc-time-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(23, 172, 100, 0.35);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-content {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx 32rpx 24rpx 32rpx;
+  min-width: 480rpx;
+  box-shadow: 0 8rpx 32rpx rgba(94, 10, 66, 0.41);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dialog-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 32rpx;
+  color: #d0021b; /* 红色 */
+}
+
+.dialog-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.dialog-row text {
+  font-size: 28rpx;
+  margin: 0 8rpx;
+  color: #222; /* 黑色 */
+}
+
+.dialog-row input {
+  width: 80rpx;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 8rpx;
+  padding: 8rpx 0;
+  margin: 0 8rpx;
+  color: #d0021b; /* 红色输入字体 */
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 32rpx;
+  margin-top: 16rpx;
+}
